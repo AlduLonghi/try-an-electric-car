@@ -10,7 +10,7 @@ class AuthController < ApplicationController
     end
   end
 
-  def logout
+  def destroy
     cookies.delete(:jwt)
   end
 end
