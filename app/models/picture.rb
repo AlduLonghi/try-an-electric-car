@@ -1,4 +1,4 @@
 class Picture < ApplicationRecord
-  belongs_to :car
   include ImageUploader::Attachment(:image)
+  belongs_to :car
 end

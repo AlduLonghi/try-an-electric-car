@@ -1,3 +1,3 @@
 class Car < ApplicationRecord
-    has_many :pictures
+  has_many :pictures, dependent: :destroy
 end
