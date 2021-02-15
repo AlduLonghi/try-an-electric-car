@@ -2,9 +2,8 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.valid?
-      token = encode_token({ user_id: @user.id })
-      cookies.signed[:jwt] = { value: token, httponly: true, expires: 1.week.from_now }
-      render json: { user: @user, token: token }
+      token_and_cookie(@user.id)
+      render json: { user: @user }
     else
       render json: { error: 'Invalid username or password' }
     end

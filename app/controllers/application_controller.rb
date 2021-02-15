@@ -2,8 +2,9 @@ class ApplicationController < ActionController::API
   include ::ActionController::Cookies
   SECRET_KEY = Rails.application.secrets.secret_base_key.to_s
 
-  def encode_token(payload)
-    JWT.encode(payload, SECRET_KEY, 'HS256')
+  def token_and_cookie(id)
+    token = encode_token({ user_id: id })
+    cookies.signed[:jwt] = { value: token, httponly: true, expires: 1.week.from_now }
   end
 
   def authorized?
@@ -11,6 +12,11 @@ class ApplicationController < ActionController::API
   end
 
   private
+
+  def encode_token(payload)
+    payload[:exp] = 1.week.from_now.to_i
+    JWT.encode(payload, SECRET_KEY, 'HS256')
+  end
 
   def decoded_token
     jwt = cookies.signed[:jwt]
