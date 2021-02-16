@@ -1,7 +1,6 @@
 class CarsController < ApplicationController
   def index
     @cars = Car.all
-    @car_pics = Picture.where(category: 'profile')
     render :index
   end
 
