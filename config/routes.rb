@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root "cars#index"
   resources :users
   resources :cars, only: [:index, :create, :show], defaults: {format: :json}
   resources :pictures, only: [:create]
