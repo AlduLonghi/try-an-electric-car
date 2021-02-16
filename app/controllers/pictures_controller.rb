@@ -11,6 +11,6 @@ class PicturesController < ApplicationController
   private
 
   def picture_params
-    params.permit(:car_id, :image)
+    params.permit(:car_id, :image, :category)
   end
 end
