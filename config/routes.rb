@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :users
-  resources :cars, only: [:index, :create, :show]
+  resources :cars, only: [:index, :create, :show], defaults: {format: :json}
   resources :pictures, only: [:create]
   resources :appointments, only: [:index, :create, :destroy]
   post '/login', to: "auth#login"

@@ -1,7 +1,8 @@
 class CarsController < ApplicationController
   def index
-    cars = Car.all
-    render json: cars
+    @cars = Car.all
+    @car_pics = Picture.where(category: 'profile')
+    render :index
   end
 
   def create
