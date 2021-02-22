@@ -4,21 +4,23 @@ class ApplicationController < ActionController::API
 
   def token_and_cookie(id)
     token = encode_token({ user_id: id })
-    cookies.signed[:jwt] = { value: token, httponly: true, expires: 1.week.from_now }
+    cookies.signed[:jwt] = { value: token, httponly: true, expires: 4.days.from_now }
   end
 
-  def authorized?
-    render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+  def authorize
+    render json: { message: 'Please log in' }, status: 401 unless logged_in?
   end
 
   private
 
   def encode_token(payload)
-    payload[:exp] = 1.week.from_now.to_i
+    payload[:exp] = 4.days.from_now.to_i
     JWT.encode(payload, SECRET_KEY, 'HS256')
   end
 
   def decoded_token
+    return unless cookies.signed[:jwt]
+
     jwt = cookies.signed[:jwt]
     JWT.decode(jwt, SECRET_KEY, true, algorithm: 'HS256')
   end

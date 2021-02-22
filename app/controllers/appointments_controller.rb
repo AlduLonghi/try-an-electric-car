@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :authorized?
+  before_action :authorize
 
   def index
     appointments = Appointment.all
@@ -11,7 +11,7 @@ class AppointmentsController < ApplicationController
     appointment.user_id = @current_user.id
 
     if appointment.save
-      render json: appointment
+      render json: appointment, status: :created, location: appointment
     else
       render json: appointment.errors, status: 404
     end

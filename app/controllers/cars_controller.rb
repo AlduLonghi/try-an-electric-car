@@ -1,4 +1,5 @@
 class CarsController < ApplicationController
+  before_action :authorize
   def index
     @cars = Car.all
     render :index
@@ -15,9 +16,9 @@ class CarsController < ApplicationController
   end
 
   def show
-    car = Car.find_by(id: params[:id])
-    if car
-      render json: car
+    @car = Car.find_by(id: params[:id])
+    if @car
+      render :show
     else
       render json: { error: "Sorry, we couldn't find the item" }, status: 404
     end
