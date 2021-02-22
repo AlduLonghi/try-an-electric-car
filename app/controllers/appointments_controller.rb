@@ -18,7 +18,7 @@ class AppointmentsController < ApplicationController
     if appointment.save
       render json: appointment, status: :created
     else
-      render json: appointment.errors,  status: :unprocessable_entity
+      render json: appointment.errors, status: :unprocessable_entity
     end
   end
 
