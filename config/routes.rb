@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root :to => "users#show"
-  resources :users
+  resources :users, only: [:create, :show]
   resources :cars, only: [:index, :create, :show], defaults: {format: :json}
   resources :pictures, only: [:create]
   resources :appointments, only: [:index, :create, :destroy]

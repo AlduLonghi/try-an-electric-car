@@ -19,10 +19,10 @@ class ApplicationController < ActionController::API
   end
 
   def decoded_token
-    return unless cookies.signed[:jwt]
-
-    jwt = cookies.signed[:jwt]
-    JWT.decode(jwt, SECRET_KEY, true, algorithm: 'HS256')
+    if (cookies.signed[:jwt])
+      jwt = cookies.signed[:jwt]
+      JWT.decode(jwt, SECRET_KEY, true, algorithm: 'HS256')
+    end
   end
 
   def logged_in_user
