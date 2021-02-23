@@ -7,8 +7,6 @@ class PicturesController < ApplicationController
       render json: picture.errors, status: :unprocessable_entity
     end
   end
-
-  def destroy
     
   def destroy
     picture = Picture.find_by(id: params[:id])
