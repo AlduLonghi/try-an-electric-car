@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :authorize, only[:index, :create]
+  before_action :authorize, only: [:index, :create]
 
   def index
     @appointments = Appointment.where(user_id: @current_user.id)
