@@ -8,6 +8,14 @@ class PicturesController < ApplicationController
     end
   end
 
+  def destroy
+    
+  def destroy
+    picture = Picture.find_by(id: params[:id])
+    picture.destroy
+    render json: 'Succesfully deleted', status: :ok
+  end
+
   private
 
   def picture_params
