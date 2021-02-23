@@ -5,6 +5,7 @@ json.data do
   json.horsepower @car.horsepower
   json.range @car.range
   json.price @car.price
+  json.description @car.description
   json.profPic @car.pictures.each do |pic|
     json.url pic.image_url if pic.category == 'profile'
   end
