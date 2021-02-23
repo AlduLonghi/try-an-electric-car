@@ -1,14 +1,8 @@
 class ApplicationController < ActionController::API
-  include ::ActionController::Cookies
   SECRET_KEY = Rails.application.secrets.secret_base_key.to_s
 
-  def token_and_cookie(id)
-    token = encode_token({ user_id: id })
-    cookies.signed[:jwt] = { value: token, httponly: true, expires: 4.days.from_now }
-  end
-
   def authorize
-    render json: { message: 'Please log in' }, status: 401 unless logged_in?
+    render json: { message: 'Please log in' }, status: 401 unless logged_in? 
   end
 
   private
@@ -18,10 +12,14 @@ class ApplicationController < ActionController::API
     JWT.encode(payload, SECRET_KEY, 'HS256')
   end
 
+  def auth_header
+    request.headers['Authorization'].split(' ')[1]
+  end
+
   def decoded_token
-    if cookies.signed[:jwt]
-      jwt = cookies.signed[:jwt]
-      JWT.decode(jwt, SECRET_KEY, true, algorithm: 'HS256')
+    if auth_header
+      token = auth_header
+      JWT.decode(token, SECRET_KEY, true, algorithm: 'HS256')
     end
   end
 
