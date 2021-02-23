@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   SECRET_KEY = Rails.application.secrets.secret_base_key.to_s
 
   def authorize
-    render json: { message: 'Please log in' }, status: 401 unless logged_in? 
+    render json: { message: 'Please log in' }, status: 401 unless logged_in?
   end
 
   private
@@ -17,10 +17,10 @@ class ApplicationController < ActionController::API
   end
 
   def decoded_token
-    if auth_header
-      token = auth_header
-      JWT.decode(token, SECRET_KEY, true, algorithm: 'HS256')
-    end
+    return unless auth_header
+
+    token = auth_header
+    JWT.decode(token, SECRET_KEY, true, algorithm: 'HS256')
   end
 
   def logged_in_user
