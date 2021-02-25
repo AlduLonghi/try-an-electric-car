@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
                          password: '123456', password_confirmation: '123456')
     @user3 = User.create(name: 'enzo', email: 'enzogmail.com',
                          password: '1234', password_confirmation: '123456')
-    @appointment = @user.appointments.build(date: '2021-05-05T00:00', car_id:'7')
+    @appointment = @user.appointments.build(date: '2021-05-05T00:00', car_id:'7', city: 'New York')
   end
 
   it { should have_many(:appointments) }
