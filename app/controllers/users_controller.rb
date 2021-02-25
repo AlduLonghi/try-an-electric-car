@@ -7,7 +7,7 @@ class UsersController < ApplicationController
       token = encode_token({ user_id: @user.id })
       render json: { user: @user, token: token }, status: :ok
     else
-      render json: { errors: @user.errors }, status: 401
+      render json: { errors: @user.errors.full_messages }, status: 500
     end
   end
 
