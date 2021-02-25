@@ -13,12 +13,11 @@ class AppointmentsController < ApplicationController
   def create
     appointment = Appointment.new(appointment_params)
     appointment.user_id = @current_user.id
-    p appointment.date
 
     if appointment.save
       render json: appointment, status: :created
     else
-      render json: appointment.errors, status: :unprocessable_entity
+      render json: { errors: appointment.errors.full_messages }, status: 500
     end
   end
 
