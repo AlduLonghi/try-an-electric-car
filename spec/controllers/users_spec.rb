@@ -20,4 +20,16 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
+  describe 'GET user request' do
+    it 'returns current user information' do
+        post '/users', params: {name: 'Enzo Tomas', email: 'enzo@gmail.com', password: '123456', password_confirmation: '123456'}
+        request_response = JSON.parse(response.body)
+        token = request_response['token']
+        get '/', headers: { 'Authorization': "bearer #{token}", 'Content-Type': 'application/json' }
+        request_response = JSON.parse(response.body)
+        expect(request_response.keys).to match_array(["created_at", "email", "id", "name", "password_digest", "updated_at"])
+    end
+
+  end
+
 end
