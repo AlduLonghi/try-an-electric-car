@@ -15,7 +15,7 @@ RSpec.describe 'Appointments', type: :request do
       post '/login', params: { email: @user.email, password: @user.password }
       request_response = JSON.parse(response.body)
       token = request_response['token']
-      get '/appointments', headers: { 'Authorization': "bearer #{token}", 'Content-Type': 'application/json' }
+      get '/appointments', headers: { 'Authorization': "bearer #{token}" }
       expect(response).to render_template(:index)
     end
   end
@@ -27,7 +27,7 @@ RSpec.describe 'Appointments', type: :request do
       token = request_response['token']
       post '/appointments',
            headers: { 'Authorization': "bearer #{token}" },
-           params: { appointment: { date: '2021-05-05T00:00', city: 'New York', car_id: @car.id, user_id: nil} }
+           params: { appointment: { date: '2021-05-05T00:00', city: 'New York', car_id: @car.id, user_id: nil } }
       expect(response).to have_http_status(:created)
     end
   end
@@ -38,7 +38,7 @@ RSpec.describe 'Appointments', type: :request do
       request_response = JSON.parse(response.body)
       token = request_response['token']
       delete "/appointments/#{@appointment.id}",
-           headers: { 'Authorization': "bearer #{token}" }
+             headers: { 'Authorization': "bearer #{token}" }
       expect(response).to have_http_status(:ok)
     end
   end
