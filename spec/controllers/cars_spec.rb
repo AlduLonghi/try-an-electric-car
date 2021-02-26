@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe 'Appointments', type: :request do
+RSpec.describe 'Cars', type: :request do
   before :each do
     @user = User.create(name: 'aldana longhi', email: 'aldulon@gmail.com',
                         password: '123456', password_confirmation: '123456')
     @car = Car.create(model: 'Porsche', horsepower: '456', range: '567',
-                        price: '34000', category: 'electric',
-                        description: 'This is an electric car')
+                      price: '34000', category: 'electric',
+                      description: 'This is an electric car')
   end
 
   describe 'GET request' do
@@ -19,12 +19,12 @@ RSpec.describe 'Appointments', type: :request do
     end
 
     it 'returns specific car' do
-        post '/login', params: { email: @user.email, password: @user.password }
-        request_response = JSON.parse(response.body)
-        token = request_response['token']
-        get "/cars/#{@car.id}", headers: { 'Authorization': "bearer #{token}" }
-        expect(response).to render_template(:show)
-      end
+      post '/login', params: { email: @user.email, password: @user.password }
+      request_response = JSON.parse(response.body)
+      token = request_response['token']
+      get "/cars/#{@car.id}", headers: { 'Authorization': "bearer #{token}" }
+      expect(response).to render_template(:show)
+    end
   end
 
   describe 'POST request' do
@@ -33,9 +33,9 @@ RSpec.describe 'Appointments', type: :request do
       request_response = JSON.parse(response.body)
       token = request_response['token']
       post '/cars', headers: { 'Authorization': "bearer #{token}" },
-                    params: {model: 'Porsche', horsepower: '456', range: '567',
-                    price: '34000', category: 'electric',
-                    description: 'This is an electric car'}
+                    params: { model: 'Porsche', horsepower: '456', range: '567',
+                              price: '34000', category: 'electric',
+                              description: 'This is an electric car' }
       expect(response).to have_http_status(:created)
     end
   end
