@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'database_cleaner'
 
 RSpec.describe Picture, type: :model do
   before :each do
