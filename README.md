@@ -18,12 +18,14 @@
 - PostgreSQL
 
 ### Running it locally
-1. `git clone https://github.com/descholar-ceo/cool-accommodation.git`
-2. `cd cool-accommodation`
+1. `git clone https://github.com/AlduLonghi/try-an-electric-car.git`
+2. `cd try-an-electric-car`
 3. `bundle install`
 4. `rails db:create && rails db:migrate`
 5. `rails s`
 6. `localhost:3000`
+7. To run the tests
+- `bundle exec rspec`
 
 **Use Postman or any other API tester to test the API**
 
